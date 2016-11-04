@@ -27,7 +27,7 @@ from django.db.models import Q
 def api_root(request, format=None):
     return Response({
         'users': reverse('user-list', request=request, format=format),
-        'coolerss': reverse('cooler-list', request=request, format=format)
+        'coolers': reverse('cooler-list', request=request, format=format)
     })
 
 @method_decorator(gzip_page, name='dispatch')
