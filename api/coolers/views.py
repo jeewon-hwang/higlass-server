@@ -80,23 +80,22 @@ class CoolersViewSet(viewsets.ModelViewSet):
 		for matIdx in range(0,numMats):
 			outputMatrices.append(map(lambda x: float("{0:.1f}".format(x)),makeTile(int(zooma[matIdx]),int(xposa[matIdx]),int(yposa[matIdx]),cooler.processed_file)))
 		"""
-	 	hargs = request.GET["data"]
-		odict = {}
-		odict["_index"] = "hg19.1"
-		odict["_type"] = "Rao2014-GM12878-MboI-allreps-filtered.1kb.cool.reduced.genome.gz"
-		odict["_id"] = hargs
-		odict["_version"] = 1
-		odict["_source"] = {}
-		odict["_source"]["tile_value"] = {}
-		odict["_source"]["tile_id"] = hargs
-		prea = hargs.split('.')
-		prea[0] = prea[0][1:]
-		argsa = map(lambda x:int(x), prea)
-		
-		odict["_source"]["tile_value"]["dense"] = map(lambda x: float("{0:.1f}".format(x)),makeTile(argsa[0],argsa[1],argsa[2],cooler.processed_file))
-		odict["_source"]["tile_value"]["min_value"] = min(odict["_source"]["tile_value"]["dense"])
-		odict["_source"]["tile_value"]["max_value"] = max(odict["_source"]["tile_value"]["dense"])
-		return JsonResponse(odict,safe=False) 
+	 	hargs = request.GET.getlist("d")
+
+                print("hargs:", hargs)
+
+                ret_dict = {}
+
+                for harg in hargs:
+                    prea = harg.split('.')
+                    argsa = map(lambda x:int(x), prea)
+
+                    ret_dict[harg] = {}
+                    ret_dict["dense"] = map(lambda x: float("{0:.1f}".format(x)),makeTile(argsa[0],argsa[1],argsa[2],cooler.processed_file))
+                    ret_dict["min_value"] = min(ret_dict["dense"])
+                    ret_dict["max_value"] = max(ret_dict["dense"])
+
+		return JsonResponse(ret_dict,safe=False) 
 
     
     @detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
