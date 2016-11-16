@@ -28,7 +28,7 @@ Add a dataset
 cd api
 wget https://s3.amazonaws.com/pkerp/public/dixon2012-h1hesc-hindiii-allreps-filtered.1000kb.multires.cool
 mv dixon2012-h1hesc-hindiii-allreps-filtered.1000kb.multires.cool data/
-curl -H "Content-Type: application/json" -X POST -d '{"processed_file":"data/dixon2012-h1hesc-hindiii-allreps-filtered.1000kb.multires.cool","file_type":"cooler"}' http://localhost:8001/tilesets/
+curl -H "Content-Type: application/json" -X POST -d '{"processed_file":"data/dixon2012-h1hesc-hindiii-allreps-filtered.1000kb.multires.cool","file_type":"cooler"}' http://localhost:8000/tilesets/
 ```
 
 This will return a UUID. This uuid can be used to retrieve tiles:
